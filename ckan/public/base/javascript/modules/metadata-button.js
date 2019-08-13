@@ -6,7 +6,7 @@
  *
  */
 
-ckan.module('metadata-button', function(jQuery) {
+this.ckan.module('metadata-button', function(jQuery) {
   return {
     options: {
       target: 'button'
@@ -17,7 +17,7 @@ ckan.module('metadata-button', function(jQuery) {
       this.el.on('click', jQuery.proxy(this._onClick, this));
     },
 
-    _onClick: function(event) {
+    _onClick: function(event) {;
       var div = document.getElementById("metadata_diff");
       if (div.style.display === "none") {
         div.style.display = "block";
