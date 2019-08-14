@@ -191,7 +191,22 @@ install and enable ELAINE's extensions. Currently, they install the following:
 - VTK.js extension (https://github.com/SFB-ELAINE/ckanext-vtkjs) from the most
   recent commit.
 
-None of these extensions need any more configuration.
+None of these extensions need any further configuration.
+
+If you are transferring in data from a CKAN instance that did not have all of
+the view extensions that this one does, you can run the `paster views create`
+command to create views for the migrated resources.
+To access a bash shell in the CKAN container and access its virtual environment
+(both of which are necessary for this `paster` command), run the following
+while all containers are up and running:
+
+.. code-block:: none
+
+  docker exec -it ckan /bin/bash -c "export TERM=xterm; exec bash"
+  source $CKAN_VENV/bin/activate && cd $CKAN_VENV/src/ckan
+
+Now follow these instructions to use the `paster` command:
+https://docs.ckan.org/en/2.8/maintaining/data-viewer.html#migrating-from-previous-ckan-versions.
 
 If more extensions need to be added, you could follow the instructions in the
 CKAN Docker Compose installation guide (https://docs.ckan.org/en/2.8/maintaining/installing/install-from-docker-compose.html#add-extensions)
