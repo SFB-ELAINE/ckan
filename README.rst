@@ -36,6 +36,8 @@ Installation
 
 See the `CKAN Documentation <http://docs.ckan.org>`_ for installation instructions.
 
+To use this branch to install ELAINE's current CKAN instance and extensions with
+Docker Compose, see `docs/elaine-docker-compose-guide.rst`.
 
 Support
 -------

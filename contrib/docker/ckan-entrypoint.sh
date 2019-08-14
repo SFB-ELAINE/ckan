@@ -69,4 +69,15 @@ fi
 
 set_environment
 ckan-paster --plugin=ckan db init -c "${CKAN_CONFIG}/production.ini"
+
+# set configuration settings for CKAN extensions
+sed -i "s|ckan.plugins .*|ckan.plugins = stats text_view image_view recline_view datastore datapusher disablepwreset pdf_view privatedatasets resource_proxy videoviewer papaya vtkjs elaine_theme|g" /etc/ckan/production.ini
+sed -i "s|ckan.views.default_views .*|ckan.views.default_views = image_view text_view recline_view pdf_view videoviewer|g" /etc/ckan/production.ini
+sed -i "s|ckan.views.default_views = image_view text_view recline_view pdf_view videoviewer\n|&\nckanext.disablepwreset.permit_reset = False\nckan.privatedatasets.parser = ckanext.privatedatasets.parsers.fiware:FiWareNotificationParser|g" /etc/ckan/production.ini
+mkdir -p /var/lib/ckan/default
+sed -i "s|\[app:main\]|\[app:main\]\nckan.storage_path = /var/lib/ckan/default|g" /etc/ckan/production.ini
+chmod u+rwx /var/lib/ckan/default
+
+
+
 exec "$@"

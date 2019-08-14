@@ -29,6 +29,8 @@ ENV CKAN_HOME /usr/lib/ckan
 ENV CKAN_VENV $CKAN_HOME/venv
 ENV CKAN_CONFIG /etc/ckan
 ENV CKAN_STORAGE_PATH=/var/lib/ckan
+ENV PATH="$CKAN_VENV/bin:$PATH"
+
 
 # Build-time variables specified by docker-compose.yml / .env
 ARG CKAN_SITE_URL
@@ -52,6 +54,14 @@ RUN ckan-pip install -U pip && \
     cp -v $CKAN_VENV/src/ckan/contrib/docker/ckan-entrypoint.sh /ckan-entrypoint.sh && \
     chmod +x /ckan-entrypoint.sh && \
     chown -R ckan:ckan $CKAN_HOME $CKAN_VENV $CKAN_CONFIG $CKAN_STORAGE_PATH
+
+RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-disablepwreset.git@37074f72078c37bc3e21fa2bb36ee40fdcfb6bbd#egg=ckanext_disablepwreset
+RUN pip install -e git+https://github.com/hayley-leblanc/ckanext-pdfview.git@31-fix-flask-exception#egg=ckanext_pdfview
+RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-privatedatasets.git@elaine-new-version#egg=ckanext_privatedatasets
+RUN pip install -e git+https://github.com/TIBHannover/ckanext-videoviewer.git#egg=ckanext_videoviewer
+RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-papaya.git#egg=ckanext-papaya
+RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-vtkjs#egg=ckanext-vtkjs
+RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-elaine_theme.git#egg=ckanext_elaine_theme
 
 ENTRYPOINT ["/ckan-entrypoint.sh"]
 
