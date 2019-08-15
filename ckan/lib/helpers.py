@@ -52,6 +52,9 @@ import ckan
 from ckan.common import _, ungettext, c, g, request, session, json
 from markupsafe import Markup, escape
 
+NotFound = logic.NotFound
+NotAuthorized = logic.NotAuthorized
+
 
 log = logging.getLogger(__name__)
 
@@ -2699,6 +2702,28 @@ def compare_pkg_dicts(old, new, old_activity_id):
 
     return change_list
 
+
+@core_helper
+def check_previous_activity(id):
+    '''
+    Determines whether there is a prior version saved for a given activity ID.
+    Called by changed_package.html to determine whether it can give users the
+    option to view the changes made between the version with the given ID and
+    the version before it.
+    '''
+    activity_id = id
+    context = {
+        u'model': model, u'session': model.Session,
+        u'user': g.user, u'auth_user_obj': g.userobj
+    }
+    log.info(activity_id)
+    try:
+        activity_diff = logic.get_action(u'activity_diff')(
+            context, {u'id': activity_id, u'object_type': u'package',
+                      u'diff_type': u'html'})
+        return True
+    except (NotFound, NotAuthorized) as e:
+        return False
 
 @core_helper
 def activity_list_select(pkg_activity_list, current_activity_id):
