@@ -84,8 +84,7 @@ value of ``COMPOSE_PROJECT_NAME`` if it is set).
 - ``docker_ckan_config``: Home of production.ini.
 - ``docker_ckan_home``: Home of CKAN virtual environment and source, as well as CKAN extensions.
 - ``docker_ckan_storage``: Home of CKAN's filestore (resource files)
-- ``docker_pg_data``: home of the database files for CKAN's default and datastore
-databases.
+- ``docker_pg_data``: home of the database files for CKAN's default and datastore databases.
 
 The location of these named volumes needs to be backed up in a production
 environment. The CKAN Docker Compose installation guide also details the process
