@@ -63,6 +63,21 @@ RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-papaya.git#egg=ckan
 RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-vtkjs#egg=ckanext-vtkjs
 RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-elaine_theme.git#egg=ckanext_elaine_theme
 
+# Install prerequisites for LDAP plugin
+RUN apt-get -q -y update \
+    && apt-get -q -y install \
+        libldap2-dev \
+        libsasl2-dev \
+        libssl-dev \
+    && apt-get -q clean \
+    && rm -rf /var/lib/apt/lists/*
+RUN cd $CKAN_VENV/src/ \
+    && git clone --single-branch -b ckan-upgrade-2.8.0a https://github.com/NaturalHistoryMuseum/ckanext-ldap.git \
+    && cd ckanext-ldap \
+    && git log | head\
+    && pip install -r requirements.txt \
+    && pip install -e .
+
 ENTRYPOINT ["/ckan-entrypoint.sh"]
 
 USER ckan
