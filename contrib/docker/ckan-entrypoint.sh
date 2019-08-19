@@ -73,6 +73,8 @@ ckan-paster --plugin=ckan db init -c "${CKAN_CONFIG}/production.ini"
 # set configuration settings for CKAN extensions
 sed -i "s|ckan.plugins .*|ckan.plugins = stats text_view image_view recline_view recline_grid_view recline_graph_view recline_map_view datastore datapusher disablepwreset pdf_view privatedatasets resource_proxy videoviewer papaya vtkjs elaine_theme ldap|g" /etc/ckan/production.ini
 sed -i "s|ckan.views.default_views .*|ckan.views.default_views = image_view text_view recline_view recline_grid_view recline_graph_view recline_map_view pdf_view videoviewer|g" /etc/ckan/production.ini
+sed -i "s|ckanext.disablepwreset.permit_reset .*||g" /etc/ckan/production.ini
+sed -i "s|ckan.privatedatasets.parser .*||g" /etc/ckan/production.ini
 sed -i "s|ckan.views.default_views = image_view text_view recline_view recline_grid_view recline_graph_view recline_map_view pdf_view videoviewer|ckan.views.default_views = image_view text_view recline_view recline_grid_view recline_graph_view recline_map_view pdf_view videoviewer\nckanext.disablepwreset.permit_reset = False\nckan.privatedatasets.parser = ckanext.privatedatasets.parsers.fiware:FiWareNotificationParser|g" /etc/ckan/production.ini
 mkdir -p /var/lib/ckan/
 sed -i "s|.*ckan.storage_path.*|ckan.storage_path = /var/lib/ckan|g" /etc/ckan/production.ini
