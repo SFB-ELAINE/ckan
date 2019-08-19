@@ -44,7 +44,7 @@ services:
 
   datapusher:
     container_name: datapusher
-    image: clementmouchet/datapusher
+    image: sfbelaine/datapusher:latest
     ports:
       - "8800:8800"
 
