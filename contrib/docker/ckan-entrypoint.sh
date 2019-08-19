@@ -78,7 +78,7 @@ sed -i "s|ckan.privatedatasets.parser .*||g" /etc/ckan/production.ini
 sed -i "s|ckan.views.default_views = image_view text_view recline_view recline_grid_view recline_graph_view recline_map_view pdf_view videoviewer|ckan.views.default_views = image_view text_view recline_view recline_grid_view recline_graph_view recline_map_view pdf_view videoviewer\nckanext.disablepwreset.permit_reset = False\nckan.privatedatasets.parser = ckanext.privatedatasets.parsers.fiware:FiWareNotificationParser|g" /etc/ckan/production.ini
 mkdir -p /var/lib/ckan/
 sed -i "s|.*ckan.storage_path.*|ckan.storage_path = /var/lib/ckan|g" /etc/ckan/production.ini
-chmod u+rwx /var/lib/ckan/default
+chmod u+rwx /var/lib/ckan/
 
 
 
