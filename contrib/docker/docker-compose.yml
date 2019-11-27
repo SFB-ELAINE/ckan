@@ -12,6 +12,7 @@ volumes:
 services:
   ckan:
     container_name: ckan
+    restart: always
     build:
       context: ../../
       args:
@@ -44,12 +45,14 @@ services:
 
   datapusher:
     container_name: datapusher
+    restart: always
     image: sfbelaine/datapusher:latest
     ports:
       - "8800:8800"
 
   db:
     container_name: db
+    restart: always
     build:
       context: ../../
       dockerfile: contrib/docker/postgresql/Dockerfile
@@ -66,6 +69,7 @@ services:
 
   solr:
     container_name: solr
+    restart: always
     build:
       context: ../../
       dockerfile: contrib/docker/solr/Dockerfile
@@ -75,4 +79,5 @@ services:
 
   redis:
     container_name: redis
+    restart: always
     image: redis:latest

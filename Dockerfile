@@ -62,6 +62,7 @@ RUN pip install -e git+https://github.com/TIBHannover/ckanext-videoviewer.git#eg
 RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-papaya.git#egg=ckanext-papaya
 RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-vtkjs#egg=ckanext-vtkjs
 RUN pip install -e git+https://github.com/SFB-ELAINE/ckanext-elaine_theme.git#egg=ckanext_elaine_theme
+RUN pip install -e git+https://github.com/ckan/ckanext-dcat.git#egg=ckanext-dcat
 
 # Install prerequisites for LDAP plugin
 RUN apt-get -q -y update \
@@ -77,6 +78,10 @@ RUN cd $CKAN_VENV/src/ \
     && git log | head\
     && pip install -r requirements.txt \
     && pip install -e .
+
+# Install prerequisites for DCAT plugin
+RUN cd $CKAN_VENV/src/ \
+    && pip install -r ckanext-dcat/requirements.txt
 
 ENTRYPOINT ["/ckan-entrypoint.sh"]
 
